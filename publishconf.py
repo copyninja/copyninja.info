@@ -16,9 +16,19 @@ RELATIVE_URLS = False
 FEED_ALL_ATOM = 'feeds/all.atom.xml'
 CATEGORY_FEED_ATOM = 'feeds/%s.atom.xml'
 
+# Use folders as category
+USE_FOLDER_AS_CATEGORY = True
+
+# Metadata
+DEFAULT_METADATA = (('author', 'Vasudeva Kamath'),)
+
 DELETE_OUTPUT_DIRECTORY = True
 
 # Following items are often useful when publishing
 
 #DISQUS_SITENAME = ""
 #GOOGLE_ANALYTICS = ""
+#GITHUB_URL = "https://github.com/copyninja"
+
+SOCIAL = SOCIAL + (('rss', SITEURL + '/' + FEED_ALL_ATOM))
+
