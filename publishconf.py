@@ -30,5 +30,4 @@ DELETE_OUTPUT_DIRECTORY = True
 #GOOGLE_ANALYTICS = ""
 #GITHUB_URL = "https://github.com/copyninja"
 
-SOCIAL = SOCIAL + (('rss', SITEURL + '/' + FEED_ALL_ATOM))
-
+SOCIAL = SOCIAL + (('rss', SITEURL + '/' + FEED_ALL_ATOM),)

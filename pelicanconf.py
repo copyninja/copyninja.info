@@ -40,7 +40,10 @@ PYGMENTS_STYLE = "solarizelight"
 BOOTSTRAP_THEME = "flatly"
 
 # Blogroll
-LINKS = (('Old Blog Archive', 'http://blog-archive.copyninja.info/'),)
+LINKS = (('Old Blog Archive', 'http://blog-archive.copyninja.info/'),
+         ('Ohloh Profile', 'https://www.ohloh.net/accounts/copyninja'),
+         ('Developer Overview (Debian)',
+          'http://qa.debian.org/developer.php?login=kamathvasudev@gmail.com'))
 
 # Social widget
 SOCIAL = (('twitter', 'https://twitter.com/copyninja_'),
