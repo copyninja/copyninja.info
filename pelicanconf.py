@@ -46,7 +46,7 @@ LINKS = (('Old Blog Archive', 'http://blog-archive.copyninja.info/'),)
 SOCIAL = (('twitter', 'https://twitter.com/copyninja_'),
           ('linkedin', 'http://in.linkedin.com/in/kamathvasudev/'),
           ('github', 'https://github.com/copyninja'),
-          ('pumpio', 'http://identi.ca/copyninja'))
+          ('bitbucket', 'https://bitbucket.com/copyninja'))
 
 # Uncomment following line if you want document-relative URLs when developing
 #RELATIVE_URLS = True
