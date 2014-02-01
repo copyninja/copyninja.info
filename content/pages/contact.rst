@@ -5,7 +5,7 @@ I prefer being contacted over email. I also encourage the use of
 encrypted email using `GPG <http://gnupg.org/>`_. My `GPG key
 <http://keyserver.kjsl.org:11371/pks/lookup?op=get&search=0x6C8F74AE87700B7E>`_.
 
-* mail: ``kamathvasudev at gmail dot com``
+* mail: `Get my email from here <http://scr.im/vasudev>`_
 * twitter handle can be seen on the sidebar.
 * irc: copyninja/vasudev on irc.oftc.net/irc.freenode.net
 
