@@ -37,7 +37,7 @@ GITHUB_USER = "copyninja"
 PYGMENTS_STYLE = "solarizelight"
 
 # Bootstrap theme
-BOOTSTRAP_THEME = "cosmo"
+BOOTSTRAP_THEME = "flatly"
 
 # Blogroll
 LINKS = (('Old Blog Archive', 'http://blog-archive.copyninja.info/'),)
