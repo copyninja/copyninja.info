@@ -30,8 +30,8 @@ years (not at the moment though).
 
 Finally this site doesn't track you using any sort of analytics nor
 provides any way to comment if you have comments consider sending me
-it over mail for the details check Contacts page. If you like the
+it over mail, for the details check Contacts page. If you like the
 articles on this site you could donate bitcoins to this address
 (**126378bwMutwq2Cuczudnw9AbshHeCJKJp**) or you can buy me something
 from my `wishlist
-<http://www.amazon.in/registry/wishlist/3LQU824RDMR13/ref=cm_wl_rlist_go_o_C-1_d>`_. 
+<http://www.amazon.in/registry/wishlist/3LQU824RDMR13/ref=cm_wl_rlist_go_o_C-1_d>`_.
