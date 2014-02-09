@@ -2,3 +2,4 @@ output
 /pelican.pid
 /pelicanconf.pyc
 /srv.pid
+/publishconf.pyc
