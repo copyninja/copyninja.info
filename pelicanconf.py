@@ -13,7 +13,7 @@ DEFAULT_LANG = u'en'
 
 # Theme
 THEME = os.path.join(os.environ.get('HOME'),
-                     'Public/pelican-bootstrap3')
+                     'Public/konoha')
 
 # Feed generation is usually not desired when developing
 FEED_ALL_ATOM = None
@@ -35,9 +35,6 @@ GITHUB_USER = "copyninja"
 
 # code highlighting
 PYGMENTS_STYLE = "solarizelight"
-
-# Bootstrap theme
-BOOTSTRAP_THEME = "flatly"
 
 # Blogroll
 LINKS = (('Old Blog Archive', 'http://blog-archive.copyninja.info/'),
