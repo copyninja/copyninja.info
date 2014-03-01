@@ -53,14 +53,14 @@ iceweasel to observe the network traffic. And below is what I observed
 in firebug network console!.
 
 
-.. image:: images/no-response-css.png
+.. image:: {filename}/images/no-response-css.png
    :alt: No response headers
    :align: center
 
 So you can see no response header in the above image but there is a
 response and below how is response content visible on firebug.
 
-.. image:: images/response-content.png
+.. image:: {filename}/images/response-content.png
    :alt: gzipped response
    :align: center
 
@@ -117,7 +117,7 @@ behavior depends on internal implementation of **mod_uwsgi** and
 request response in **Firebug** network console and below is what I
 observed.
 
-.. image:: images/response-content-uwsgi-proxy.png
+.. image:: {filename}/images/response-content-uwsgi-proxy.png
    :alt: Response with mod_proxy_uwsgi
    :align: center
 
