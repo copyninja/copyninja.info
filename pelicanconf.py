@@ -15,6 +15,7 @@ DEFAULT_LANG = u'en'
 THEME = os.path.join(os.environ.get('HOME'),
                      'Public/konoha')
 
+
 # Feed generation is usually not desired when developing
 FEED_ALL_ATOM = None
 CATEGORY_FEED_ATOM = None
@@ -33,9 +34,6 @@ CC_LICENSE = "CC-BY-NC-SA"
 # Github info
 GITHUB_USER = "copyninja"
 
-# code highlighting
-PYGMENTS_STYLE = "solarizelight"
-
 # Blogroll
 LINKS = (('Old Blog Archive', 'http://blog-archive.copyninja.info/'),
          ('Ohloh Profile', 'https://www.ohloh.net/accounts/copyninja'),
@@ -50,6 +48,8 @@ SOCIAL = (('twitter', 'https://twitter.com/copyninja_'),
 
 # Uncomment following line if you want document-relative URLs when developing
 #RELATIVE_URLS = True
+
+STATIC_PATHS = ["images", ]
 
 # URL generation
 ARTICLE_URL = 'blog/{slug}.html'
