@@ -135,6 +135,30 @@ following content.::
 
   nameserver 192.168.2.1
 
+After this you need to do NAT/masquerading using iptables. Just copy
+following script to a file and execute it as root
+
+.. code-block:: shell
+
+   #!/bin/sh
+
+   # Restart the dnsmasq
+   /etc/init.d/dnsmasq restart
+	 
+   # Set nat rules in iptables
+   iptables --flush
+   iptables --table nat --flush
+   iptables --delete-chain
+   iptables --table nat --delete-chain
+	 
+   # Replace accordingly usb0 with ppp0 for 3G
+   iptables --table nat --append POSTROUTING --out-interface eth1 -j MASQUERADE
+   iptables --append FORWARD --in-interface vdetap -j ACCEPT
+	 
+   # Enable IP forwarding in Kernel
+   sysctl -w net.ipv4.ip_forward=1
+   
+
 With the above setup you will be able to get DNS resolution even after
 you reboot the Qemu instance but Internet connection will not work
 untill you run the ``route`` command I mentioned above. I still didn't
@@ -153,3 +177,6 @@ server!. I will put up the notes of my BSD adventure here
 periodically.
 
 The feeling of using a BSD is amazing :-)
+
+  **Update**: I forgot to add masquerading step, I've added it
+  now.
