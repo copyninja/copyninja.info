@@ -10,7 +10,7 @@ hack on free software project which interests me.
 
 I grew up and studied in city of `Karkala
 <http://en.wikipedia.org/wiki/Karkala>`_ which is in State of
-Karnataka in South India (West Coast). Currently I leave in Bangalore
+Karnataka in South India (West Coast). Currently I live in Bangalore
 where I do my day job.
 
 Free and Open Source software has been my area of interest from long
