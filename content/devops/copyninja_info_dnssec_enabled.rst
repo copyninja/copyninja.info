@@ -72,7 +72,7 @@ generating keys, thanks to `Jonas <http://dr.jones.dk>`_ for this.
 .. code:: bash
 
    mkdir -p /etc/bind/keys
-   zonesigner -a': zonesigner -algorithm RSASHA256 -keydirectory /etc/bind/keys\
+   zonesigner -algorithm RSASHA256 -keydirectory /etc/bind/keys\
 	  -dsdir /etc/bind/keys -archivedir /etc/bind/keys/archive \
 	  /etc/bind/db.example.com
 
