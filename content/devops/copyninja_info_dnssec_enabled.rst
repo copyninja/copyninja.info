@@ -69,7 +69,7 @@ signing and including KSK and ZSK keys into bind configuration which
 otherwise should be done manually. Here is the command line I used for
 generating keys, thanks to `Jonas <http://dr.jones.dk>`_ for this.
 
-.. code:: bash
+.. code-block:: bash
 
    mkdir -p /etc/bind/keys
    zonesigner -algorithm RSASHA256 -keydirectory /etc/bind/keys\
@@ -90,7 +90,7 @@ file.
    zone before 30 days. For resigning just run zonesigner from
    /etc/bind/keys. You can setup cron job to do this periodically.
 
-.. code:: bash
+.. code-block:: bash
 
    zonesigner -zone example.com /path/to/db.example.com
 
