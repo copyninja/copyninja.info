@@ -140,7 +140,7 @@ int}`. Similarly if you return array with int values it will be
 
 With above understanding our add function now looks like below.
 
-.. code:: python
+.. code-block:: python
 
    @signature({str: int}, int, int)
    def add(a, b):
