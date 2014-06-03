@@ -4,7 +4,7 @@ Using WSME with Flask microframework
 :date: 2014-06-03 20:15
 :slug: wsme-with-flask
 :tags: python, programming, wsme, rest
-:authors: copyninja
+:author: copyninja
 :summary: This is short guide on how to use wsme with Flask
           applications, writing this because I felt documentation is
           lacking.
