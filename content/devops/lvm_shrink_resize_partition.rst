@@ -42,7 +42,7 @@ installation step and there I found new way!
 
   cp debian-wheezy.iso /dev/sdb
   
-Look at destination, its a device and voil‡ this worked! This is
+Look at destination, its a device and voil√† this worked! This is
 something new I learnt and I'm surprised how easy it is now to prepare
 USB stick. But I still didn't get why first 2 methods failed!. If you
 guys know please do share.
@@ -81,8 +81,9 @@ materials told me to use live-cd for doing this but I didn't have
 patience to do that so I just went ahead commented /home mounting in
 /etc/fstab and rebooted!. This time it worked and /home is not mounted
 on recovery mode. Now comes the hard part resizing home, thanks to
-`tldp.org <http://tldp.org/HOWTO/LVM-HOWTO/reducelv.html>`_ I coud do
-this with following step
+`TLDP doc on reducing
+<http://tldp.org/HOWTO/LVM-HOWTO/reducelv.html>`_ I coud do this with
+following step
 
 .. code-block:: shell
 
@@ -91,8 +92,9 @@ this with following step
   # lvreduce -L-10G /dev/volume-name/home
   
 And now the next part live extending the root partition again thanks
-to `tldp.org <http://tldp.org/HOWTO/LVM-HOWTO/extendlv.html>`_
-following command did it.
+to `TLDP doc on extending
+<http://tldp.org/HOWTO/LVM-HOWTO/extendlv.html>`_ following command
+did it.
 
 .. code-block:: shell
 
