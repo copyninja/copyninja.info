@@ -51,6 +51,10 @@ SOCIAL = (('twitter', 'https://twitter.com/copyninja_'),
 
 STATIC_PATHS = ["images", ]
 
+PLUGINS = [
+    'pelican_youtube',
+]
+
 # URL generation
 ARTICLE_URL = 'blog/{slug}.html'
 ARTICLE_SAVE_AS = 'blog/{slug}.html'
