@@ -13,7 +13,7 @@ DEFAULT_LANG = u'en'
 
 # Theme
 THEME = os.path.join(os.environ.get('HOME'),
-                     'Public/konoha')
+                     'Public/pelican-themes/basic')
 
 
 # Feed generation is usually not desired when developing
