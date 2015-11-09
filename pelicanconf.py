@@ -13,7 +13,7 @@ DEFAULT_LANG = u'en'
 
 # Theme
 THEME = os.path.join(os.environ.get('HOME'),
-                     'Public/pelican-themes/basic')
+                     'Public/pelican-themes/elegant')
 
 
 # Feed generation is usually not desired when developing
