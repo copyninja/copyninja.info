@@ -5,6 +5,7 @@ import os
 
 AUTHOR = u'Vasudeva Kamath'
 SITENAME = u'Random Ramblings'
+SITESUBTITLE=u'Random thoughts shooting out of volatile mind'
 SITEURL = 'http://localhost:8000'
 
 TIMEZONE = 'Asia/Calcutta'
@@ -29,7 +30,8 @@ DISPLAY_CATEGORIES_ON_MENU = False
 DISPLAY_TAGS_ON_SIDEBAR = True
 
 # License of blog
-CC_LICENSE = "CC-BY-NC-SA"
+CC_LICENSE = "Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported"
+SITE_LICENSE = CC_LICENSE
 
 # Github info
 GITHUB_USER = "copyninja"
