@@ -65,9 +65,7 @@ at systemctl man page made showed me this.
            list.
 
 I did remember doing this for my container and hence it became clear
-these files are actually written by *systemctl set-property* (Though
-there is no indication in man page on where actually these changes are
-stored in disk).
+these files are actually written by *systemctl set-property*.
 
 In case you don't want to persist the properties across boot you can
 simply pass *--runtime* switch.
