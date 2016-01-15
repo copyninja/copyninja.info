@@ -309,7 +309,7 @@ know how to find out if this had any effect or not.
 If some one knows about this please share your suggestions to me and I
 will update this section with your provided information.
 
-Conclussion
+Conclusion
 ===========
 
 All in all I like systemd-nspawn a lot. I use it to run container for
