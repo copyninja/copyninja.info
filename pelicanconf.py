@@ -14,7 +14,7 @@ DEFAULT_LANG = u'en'
 
 # Theme
 THEME = os.path.join(os.environ.get('HOME'),
-                     'Public/pelican-themes/elegant')
+                     'Public/pelican-simple/')
 
 
 # Feed generation is usually not desired when developing
@@ -24,7 +24,7 @@ TRANSLATION_FEED_ATOM = None
 
 # Display pages in Menu
 DISPLAY_PAGES_ON_MENU = True
-DEFAULT_PAGINATION = 5
+DEFAULT_PAGINATION = 20
 TAG_CLOUD_MAX_ITEMS = 10
 DISPLAY_CATEGORIES_ON_MENU = False
 DISPLAY_TAGS_ON_SIDEBAR = True
@@ -64,3 +64,8 @@ PAGE_URL = '{slug}'
 PAGE_SAVE_AS = '{slug}.html'
 TAG_URL = 'tags/{slug}.html'
 TAG_SAVE_AS = 'tags/{slug}.html'
+
+# Save index
+#INDEX_SAVE_AS = 'archive.html'
+
+PYGMENTS_RST_OPTIONS = {'linenos': 'none',}
