@@ -55,6 +55,7 @@ STATIC_PATHS = ["images", ]
 
 PLUGINS = [
     'pelican_youtube',
+    'minification'
 ]
 
 # URL generation
