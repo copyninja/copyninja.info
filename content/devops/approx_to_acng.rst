@@ -124,6 +124,6 @@ and purged approx and its cache.
 Update
 ------   
 
-Jonas told me that its not 2 caches but 2 routing one for transparent
-routing and another for explicit routing. So I guess there is nothing
-here to fix :-).
+Jonas told me that its not 2 caches but 2 routing paths, one for
+transparent routing and another for explicit routing. So I guess there
+is nothing here to fix :-).
