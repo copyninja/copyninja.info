@@ -40,7 +40,8 @@ some listed from the apt-cacher-ng manual.
 
 * use of TLS/SSL repositories (may be possible with approx but I'm notsure how to do it)
 * Access control of who can access caching server
-* Integration with debdelta (I've not tried)
+* Integration with debdelta (I've not tried, approx also supports
+  debdelta)
 * Avoiding use of apt-cacher-ng for some hosts
 * Avoiding caching of some file types
 * Partial mirroring for offline usage.
@@ -58,7 +59,9 @@ Transition
 ==========
 
 Transition from approx to apt-cacher-ng was smoother than I
-expected. I had to change my /etc/apt/sources.list to use the actual
+expected. There are 2 approaches you can use one is explicit routing
+another is transparent routing. I prefer transparent routing and I
+only had to change my /etc/apt/sources.list to use the actual
 repository URL.
 
 .. code-block:: sources.list
@@ -70,22 +73,19 @@ repository URL.
    deb-src http://deb.debian.org/debian experimental main
 
 
-I had to add a *01proxy* configuration file to */etc/apt/apt.conf.d/*
-with following content.
+After above change I had to add a *01proxy* configuration file to
+*/etc/apt/apt.conf.d/* with following content.
 
 .. code-block:: conf
 
    Acquire::http::Proxy "http://localhost:3142/"
 
-And thats it apt will transparently use apt-cacher-ng as caching proxy
-server. It is also possible to specify proxy in the sources.list
-directly in below format
+I use explicit routing only when using apt-cacher-ng with pbuilder and
+debootstrap. Following snippet shows explicit routing through */etc/apt/sources.list*.
 
 .. code-block:: sources.list
 
    deb http://localhost:3142/deb.debian.org/debian unstable main
-
-But it looks ugly to me so I preferred the transparent proxy approach.
 
 Usage with pbuilder and friends
 -------------------------------
@@ -111,7 +111,19 @@ Conclusion
 I've now completed full transition of my work flow to apt-cacher-ng
 and purged approx and its cache.
 
-Though it works fine I feel that there will be 2 caches created when
-you use transparent and explicit proxy using localhost:3142 URL. I'm
-sure it is possible to configure this to avoid duplication, but I've
-not yet figured it. If you know how to fix this do let me know.
+.. role:: strike
+   :class: strike
+
+.. container:: strike
+
+   Though it works fine I feel that there will be 2 caches created when
+   you use transparent and explicit proxy using localhost:3142 URL. I'm
+   sure it is possible to configure this to avoid duplication, but I've
+   not yet figured it. If you know how to fix this do let me know.
+
+Update
+------   
+
+Jonas told me that its not 2 caches but 2 routing one for transparent
+routing and another for explicit routing. So I guess there is nothing
+here to fix :-).
