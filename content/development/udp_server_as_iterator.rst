@@ -141,7 +141,9 @@ Update
 
 I got a suggestion from *Ryan Nowakowski* to make the server object as `context
 manager` and close the socket in `__exit__` as it can't be guaranteed that
-`__del__` will be called for objects which exists during interpreter exits. So I slightly modified the class to add `__enter__` and `__exit__` method like below and removed `__del__`
+`__del__` will be called for objects which exists during interpreter exits. So I
+slightly modified the class to add `__enter__` and `__exit__` method like below
+and removed `__del__`
 
 .. code-block:: python
 
