@@ -5,7 +5,7 @@ My personal Email setup - Notmuch, mbsync, postfix and dovecot
 :slug: email_setup
 :author: copyninja
 :tags: email, notmuch, mbsync
-:summary: Brief description on my email setup on my laptop
+:summary: Brief description of my email setup.
 
 I've been using personal email setup for quite long and have not documented it
 anywhere. Recently when I changed my laptop (a post is pending about it) I got
@@ -23,16 +23,16 @@ redpill is?. (In jonas's own words)
    <jonas> Redpill is a concept - a way to setup Debian hosts to collaborate
    across organisations
    <jonas> I develop the concept, and use it for the first ever Redpill
-   network-of-networks redpilld.dk, involving my own network (jones.dk), my main
+   network-of-networks redpill.dk, involving my own network (jones.dk), my main
    client's network (homebase.dk), a network in Germany including Skolelinux
-   Germany (free-owl.de), and Vasudevøs network (copyninja.info)
+   Germany (free-owl.de), and Vasudev's network (copyninja.info)
 
-Along with that I've a dovecot sieve filtering to classify on high level mails
+Along with that I have a dovecot sieve filtering to classify on high level mails
 into various folders depending on from where they originate. All the rules live
-in the `~/dovecot.sieve` file under every account which is a mail address.
+in the `~/dovecot.sieve` file under every account which has a mail address.
 
-Again I'm not going into detail of how to set these things as its not goal of my
-this post.
+Again I'm not going into detail of how to set these things up, as its not goal
+of my this post.
 
 On my Laptop
 ============
@@ -104,7 +104,7 @@ private things redacted.
    SyncState *
    Sync All
 
-Explanation to some interesting part in above configuration. One is the
+Explanation for some interesting part in above configuration. One is the
 *PassCmd* which allows you to provide shell command to obtain the password for
 the account. This avoids filling in the password in configuration file. I'm
 using symmetric encryption with gpg and storing password some where on my disk.
@@ -131,7 +131,7 @@ searching a mail quickly when you have huge pile of mail to go through. This is
 where *notmuch* comes into picture.
 
 *notmuch* allows me to easily index through Gigabytes of my mail archives and
-get what I need very easily. I've a created a small script which combines
+get what I need very easily. I've created a small script which combines
 executing of `mbsync` and `notmuch` execution. I tag mails based on the Maildirs
 which are actually created on server side using dovecot sieve. Below is my full
 shell script which is doing task of syncing classification and deleting of
@@ -176,7 +176,7 @@ spams.
    done
 
 So before running mbsync I search for all mails tagged as *deleted* and delete
-them from system. Next I took for mails tagged as *Spam* on my both accounts and
+them from system. Next I look for mails tagged as *Spam* on both my accounts and
 move it to Spam folder. Yeah you got it right these are mails escaping the spam
 filter and landing in my inbox and personally marked as Spam.
 
@@ -198,15 +198,16 @@ my entire *.spacemacs* file. You can find the code for my private layer in
 Sending Mails
 =============
 
-Well its not sufficient if we can read mails, we need to be able to reply to
-mail. And this was the bit of tricky part where I recently got lost and started
-writing this post.
+Well its not sufficient that if we can read mails, we need to be able to reply
+to mail. And this was the slightly tricky part where I recently got lost and had
+to write this post so that I don't forget it again. (And of course don't have to
+refer some outdated posts on web).
 
-My setup to send mails is using *postfix* as SMTP client using my own SMTP
-server as relayhost for it. The problem of relaying is its not for the mobile
-hosts (or as jonas says *not for the road runners*). There are couple of ways to
-allow mobile hosts to use relay servers, one is put the IP address from where
-mail will originate into *my_network* or second use SASL authentication.
+My setup to send mails is using *postfix* as SMTP client with my own SMTP server
+as relayhost for it. The problem of relaying is it's not for the hosts with
+dynamic IP. There are couple of ways to allow hosts with dynamic IP to use relay
+servers, one is put the IP address from where mail will originate into
+*my_network* or second use SASL authentication.
 
 My preferred way is use of SASL authentication. For this I first had to create a
 separate account one for each machine which is going to relay the mails to my
