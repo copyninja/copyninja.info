@@ -312,5 +312,7 @@ Put these files under /etc/systemd/user and run below command to enable them.
    systemctl enable --user mailsync.service
    systemctl start --user mailsync.timer
 
-So that's how I've sync and send mail from my system. If you see that there is a
-way to improve things please do let me know. Happy Holidays :-).
+So that's how I've sync and send mail from my system. I came to know about
+*afew* from Jonas Smedegaard who also proof read this post. So next step I will
+try to improve my notmuch configuration using afew and of course a post will
+follow after that :-).
