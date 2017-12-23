@@ -193,7 +193,7 @@ emacs so I took some time to write down the a private layer which brings
 together all my keybindings and classification in one place and does not clutter
 my entire *.spacemacs* file. You can find the code for my private layer in
 `notmuch-emacs-layer repository
-<https://github.com/copyninja/notmuch-emacs-layer>`_
+<https://source.copyninja.info/notmuch-emacs-layer.git/>`_
 
 Sending Mails
 =============
