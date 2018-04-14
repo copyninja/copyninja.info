@@ -1,5 +1,5 @@
-Docker as Development Environment
-#################################
+Docker container as Development Environment
+###########################################
 
 :date: 2018-04-14 13:15 +0530
 :author: copyninja
