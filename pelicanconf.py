@@ -53,9 +53,11 @@ SOCIAL = (('twitter', 'https://twitter.com/copyninja_'),
 
 STATIC_PATHS = ["images", ]
 
+PLUGIN_PATH = ['../pelican-plugins']
 PLUGINS = [
     'pelican_youtube',
-    'minification'
+    'minification',
+    'render_math'
 ]
 
 # URL generation
