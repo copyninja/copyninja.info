@@ -109,8 +109,8 @@ point for me. In short I can say the following.
 ..
 
   Nothing can be done in single day, before you code understand the basic
-  concepts and then build it from there. As they say you can't build house on
-  weak foundation.
+  concepts and then build it from there. As they say you can't build a stable
+  house on weak foundation.
 
 In the next post in this series I will write about my learning on Elliptic
 Curves and Elliptic curve groups, followed by experiment with number groups and
