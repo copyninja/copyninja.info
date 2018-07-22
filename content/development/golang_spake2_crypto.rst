@@ -1,7 +1,7 @@
 SPAKE2 In Golang: Journey to Cryptoland begins
 ##############################################
 
-:date: 2018-07-22 13:43 +0530
+:date: 2018-07-22 22:07 +0530
 :slug:  golang_spake2_1
 :tags: go, golang, spake2, cryptograph, ecc, magic-wormhole
 :author: copyninja
@@ -11,9 +11,9 @@ SPAKE2 In Golang: Journey to Cryptoland begins
 
 ..
 
-   Disclaimer: This or the series of SPAKE2 related posts are inspired from
-   `Jonathan Lange's <https://jml.io>`_  `series on SPAKE2
-   <https://jml.io/tag/spake2.html>`_  when he ported it to Haskell, which is
+   This or the series of SPAKE2 related posts are inspired from `Jonathan
+   Lange's <https://jml.io>`_ `series on SPAKE2
+   <https://jml.io/tag/spake2.html>`_ when he ported it to Haskell, which is
    also the reference I used for my implementation in Golang.
 
 
