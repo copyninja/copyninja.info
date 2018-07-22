@@ -86,8 +86,8 @@ I don't know basic itself).
 First Try, Bruteforce
 ---------------------
 
-I've this bad habit of tackling problem with brute force some times it works but
-most time it just exhausts me taking me nowhere. So with my normal habit I
+I've this bad habit of tackling problem with brute force; some times it works but
+most time it just exhausts me, taking me nowhere. So with my normal habit I
 started looking for Ed25519 curve operations library. (Without actually knowing
 what operations are and how it works). I tried to read through
 *curve25519-dalek* but invain, nothing entered into my head. I found *ed25519*
