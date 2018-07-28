@@ -3,7 +3,7 @@ SPAKE2 In Golang: Journey to Cryptoland begins
 
 :date: 2018-07-22 22:07 +0530
 :slug:  golang_spake2_1
-:tags: go, golang, spake2, cryptograph, ecc, magic-wormhole
+:tags: go, golang, spake2, cryptography, ecc, magic-wormhole
 :author: copyninja
 :summary: My notes on SPAKE2 implementation in Golang, my first Golang and
           cryptographic library
