@@ -10,8 +10,9 @@ SPAKE2 In Golang: Elliptic Curves Primer
 
 ..
 
-    TLDR; this post is going to be too long and mostly theoretical. Actual
-    Golang related posts will be may 2 or 3 posts later.
+    TLDR; this post is going to be too long and mostly theoretical. If you are
+    wondering about where is Go in all these posts, please wait for few more
+    posts before I can write about the actual implementation.
 
 
 In my `previous post <https://copyninja.info/blog/golang_spake2_1.html>`_ I
@@ -76,8 +77,8 @@ For a group to be Abelian there is a 5th rule.
 5. **commutativity**: :math:`a + b = b + a`
 
 If a group satisfies we get some additional property such that **unique identity
-element** and **unique inverse element** which is very important for
-cryptography.
+element** and **unique inverse element** which is either directly or indirectly
+very important.
 
 Elliptic Curve Groups
 ---------------------
@@ -110,7 +111,7 @@ Since we know :math:`P + Q + R = 0` we can say :math:`P + Q = -R`. This means we
 draw a line on elliptic curve which passes through point `P` and `Q` it
 intersects the curve at 3rd point `R`. Inverse of point `R` is `-R` and is the
 result of addition of 2 points `P` and `Q`.  This is easy geometrically but for
-computers we need to represent this with algebraic notation. This is where the
+computers, we need to represent this with algebraic notation. This is where the
 *slope of line* comes to picture, another academic topic which I learnt without
 actually knowing its real world application.
 
@@ -149,8 +150,8 @@ Scalar Multiplication
 ---------------------
 
 One more important operation we do with elliptic curve group is scalar
-multiplication. Let's say we want to calculate :math:`nP`. Scalar multiplication
-can be defined in terms of addition as shown below
+multiplication. It allows you to calculate :math:`nP` where `n` is a natural
+number. Scalar multiplication can be implemented using addition as follows.
 
 .. math::
 
@@ -160,6 +161,59 @@ This property is what makes elliptic curves attractive and faster than the
 normal integer groups where scalar multiplication is actually exponentiation
 operation.
 
+If we see scalar multiplication formula above, we see that it requires `n`
+addition, which can be :math:`O(n)` operation or, if we consider `n` as `k` bit
+integer then algorithm will be :math:`O(2^k)`which looks highly inefficient when
+`n` is large prime number.
+
+But there is another algorithm which is much faster for this purpose, its called
+**double and add** you can find `wikipedia article on it
+<https://en.wikipedia.org/wiki/Elliptic_curve_point_multiplication>`_. First I
+did not understand this, but after a while of struggling, and trying to
+implement it myself it became pretty clear. It works with first taking binary
+representation of `n` :math:`n = n_0 + 2n_1 + 2^2_n2 + ...+2^kn_k` where
+:math:`[n_0..n_k] \in \{0,1\}`. Below is pseudo code for the recursive version
+of algorithm.
+
+.. code:: python
+
+   def scalarmult(P, n):
+          if n == 1:
+              return P # identity element
+          if n & 1:
+              # n is odd we add point
+              return point_add(P, scalarmult(P, n - 1)
+          else:
+              return scalarmult(point_double(P), n >> 1) # we double point and multiply by n/2
+
+Let's consider an example to understand what is this algorithm doing. Lets say
+we want to caculate `21P`. First thing is we denote `21` as binary string
+`10101` now skipping all those 0's and consider only the 1's, so we will have
+:math:`2^4 + 2^2 + 2^0`. Now if we multiply P to this representation. So this
+algorithm calculates `21P` as :math:`16P + 4P + P`.
+
+If we consider doubling and adding as constant operations i.e. :math:`O(1)` then
+this algorithm will be :math:`O(\log n)` (in above 21 can be calculated in 3
+operations which is :math:`\log 21`) which is much better than earlier
+:math:`O(n)` algorithm.
+
 Given `n` and `P` we can easily cacluate :math:`Q = nP` but given `Q` and `P`
 there is no *easy* way to find `n` especially when numbers are big. This is the
-*"hard"* problem or the *discrete logarithm problem* which makes cryptography work.
+*"hard"* problem or the *discrete logarithm problem* which makes cryptography
+work.
+
+Conclusion
+==========
+
+So I learned now about Elliptic curves, its group and operations like scalar
+multiplication and addition. But this is not directly useful, we need to learn
+about **Finite Fields** and **Elliptic Curve over Finite Field** and many more
+concepts before we can go to actual implementation!. I thought of writing finite
+field as part of this post, but then I've already written a lot and there is no
+point in expanding this post more. So finite fields, cyclic groups will be part
+of next post.
+
+As a closing note, if you are wondering why there is no mention of anything
+about Go, you need to wait a bit more for my actual implementation notes in
+Golang. I would like to write down entire learning process rather than directly
+jumping to implementation. So please bare with me :-).
