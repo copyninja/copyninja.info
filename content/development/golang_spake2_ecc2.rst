@@ -1,11 +1,10 @@
 SPAKE2 In Golang: Finite fields of Elliptic Curve
 #################################################
 
-:date: 2018-07-29 19:02 +0530
+:date: 2018-08-12 22:51 +0530
 :slug: golang_spake2_3
 :tags: go, golang, spake2, cryptography, ecc
 :author: copyninja
-:status: draft
 :summary: Third post in SPAKE2 in Golang. This post is my notes on finite fields
           in elliptic curve group.
 
@@ -135,8 +134,61 @@ Subgroup Order
 
 Subgroup order tells how many points are really there in the subgroup. We can
 redefine the *order of group* in subgroup context as **order of P is the
-smallest positive integer such that nP = 0**. Order of subgroup is linked to
-order of elliptic curve by `Lagrange's Theorem
+smallest positive integer such that nP = 0**. In above case if you see we have
+smallest `n` as `5` since `5P = 0`. So order of subgroup above is 5, it contains
+5 element.
+
+Order of subgroup is linked to order of elliptic curve by `Lagrange's Theorem
 <https://en.wikipedia.org/wiki/Lagrange%27s_theorem_(group_theory)>`_ which says
 **the order of subgroup is divisor of order of parent group**. Lagrange is
 another name which I had read in my college, but the algorithms were different.
+
+From this we have following steps to find out the order of subgroup with base
+point `P`
+
+1. Calculate the elliptic curve's order `N` using Schoof's algorithm.
+2. Find out all divisors of `N`.
+3. For every divisor of `n`, compute `nP`.
+4. The smallest `n` such that `nP = 0` is the order of subgroup `N`.
+
+Note that its important to choose smallest divisor, not a random one. In above
+examples 5P, 10P, 15P all satisfy condition but order of subgroup is 5.
+
+Finding Base Point
+------------------
+
+Far all above which is used in ECC, i.e. Group, subgroup and order we need a
+base point `P` to work with. So base point calculation is not done at the
+beginning but in the end i.e. first choose a order which looks good then look
+for subgroup order and finally find the suitable base point.
+
+We learnt above that subgroup order is divisor of group order which is derived
+from *Lagrange's Theorem*.  This term :math:`h = N/n` is actually called
+**co-factor of the subgroup**. Now why is this term co-factor important?.
+Without going into details, this co-factor is used to find generator for the
+subgroup as :math:`G = hP`.
+
+Conclusion
+===========
+
+So now are you wondering why I went on such length to describe all these?. Well
+one thing I wanted to make some notes for myself because you can't find all
+these information in single place, another these topics we talked in my previous
+post and this point forms the domain parameters of *Elliptic Curve
+Cryptography*.
+
+Domain parameters in ECC are the parameters which are known publicly to every
+one. Following are 6 parameters
+
+* Prime `p` which is order of Finite field
+* Co-efficients of curve `a` and `b`
+* Base point :math:`\mathbb G` the generator which is the base point of curve
+  that generates subgroup
+* Order of subgroup `n`
+* Co-factor `h`
+
+So in short following is the domain parameters of ECC :math:`(p, a, b, G, n, h)`
+
+In my next post I will try to talk about the specific curve group which is used
+in SPAKE2 implementation called **twisted Edwards curve** and give a brief
+overview of SPAKE2 protocol.
