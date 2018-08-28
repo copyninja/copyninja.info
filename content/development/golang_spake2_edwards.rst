@@ -1,7 +1,7 @@
 SPAKE2 in Golang: ECDH, SPAKE2 and Curve Ed25519
 ################################################
 
-:date: 2018-08-28 11:38 +0530
+:date: 2018-08-28 20:25 +0530
 :slug: golang_spake2_4
 :tags: go, golang, spake2, cryptography, ecc
 :author: copyninja
@@ -42,6 +42,8 @@ share a shared secret now.
 
    s = B^a \bmod{p} = g^{ba} \bmod{p} = A^b \bmod{p} = g^{ab} \bmod{p}
 
+Since group is Abelian :math:`g^{ba} \bmod{p} = g^{ab} \bmod{p}` and hence both
+side will come to same shared key.
 
 Now in ECC,
 
@@ -128,18 +130,20 @@ Curve Ed25519 Group
 Now that we have seen the SPAKE2 protocol, we will next see the use of Elliptic
 Curve groups in it and see how it varies.
 
-SPAKE2 uses *Abelian Group* with large number of "elements". `Brian Warner
-<http://lothar.com/blog/>`_ has choosen elliptic curve group *Ed25519* (some
-times also referred as X25519) as default group in *python-spake2*
+SPAKE2 uses *Abelian Group* with large number of "elements". We know that
+Elliptic curve groups are Abelian groups, so we can fit them in SPAKE2. `Brian
+Warner <http://lothar.com/blog/>`_ has choosen elliptic curve group *Ed25519*
+(some times also referred as X25519) as default group in *python-spake2*
 implementation. This is the same group which is used in *Ed25519 signature
 scheme*. The difference between multiplicative integer group modulo p and
 elliptic curve group is that, element in integer group is just a number but in
 elliptic curve group its a point. (represented by 2 co-ordinates).
 
-Curve Ed25519 is a *twisted Edwards curve*, defined in affine form as
-:math:`ax^2 + y^2 = 1 + dx^2y^2` where :math:`d \in k\{0,1\}`.
+Curve Ed25519 which is actually called Edwards25519 is a *twisted Edwards
+curve*, defined in affine form as :math:`ax^2 + y^2 = 1 + dx^2y^2` where
+:math:`d \in k\{0,1\}`.
 
-* :math:`q = 2^{255} - 19` is the order of curve group
+* :math:`q = 2^{255} - 19` is the order of curve groups
 * :math:`l = 2^{252} + 27742317777372353535851937790883648493` is the order of
   curve subgroup.
 * :math:`a = -1`
