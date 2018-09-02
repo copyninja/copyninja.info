@@ -1,5 +1,5 @@
-SPAKE2 in Golang: Implementing Groups in Golang
-###############################################
+SPAKE2 in Golang: Implementing Groups
+#####################################
 
 :date: 2018-09-02 17:14 +0530
 :slug: golang_spake2_5
