@@ -78,6 +78,9 @@ by a making service execute before *local-fs.pre* target. From the man page for
        target unit for those mounts listed in /etc/fstab that have the auto
        mount option set.
 
+Service also disables itself on executing to avoid re-runs on every boot. I've
+used the service file from raspi3-image-spec as is.
+
 Testing with VM
 ===============
 
@@ -193,7 +196,8 @@ some modifications to suit my needs.
      root-fs: /
 
 I could not run with vmdb2 installed from Debian archive, so I cloned
-raspi3-image-spec and used vmdb2 submodule from it.
+raspi3-image-spec and used vmdb2 submodule from it. And here are rest of
+commands used for testing the script.
 
 .. code:: shell
 
