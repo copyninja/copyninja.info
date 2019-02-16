@@ -94,7 +94,7 @@ I used kpartx with raw file images. Here is what I did
 
 Below is my vmdb configuration yml again derived from `raspi3-image-spec
 <https://github.com/Debian/raspi3-image-spec/blob/master/raspi3.yaml>`_ one with
-some modifications to my needs.
+some modifications to suit my needs.
 
 .. code:: yaml
 
