@@ -91,7 +91,7 @@ I used kpartx with raw file images. Here is what I did
 1. Created a stretch image using vmdb2 with grub installed. Image size is 1.5G
 2. I created another raw disk using fallocate of 4G size.
 3. I created a partition on 4G disk.
-4. Loop mounted the disk and wrote 1G image on it using dd
+4. Loop mounted the disk and wrote 1.5G image on it using dd
 5. Finally created a VM using virt-install  with this loop mounted device as
    root disk.
 
