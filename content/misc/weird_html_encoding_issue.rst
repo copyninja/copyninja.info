@@ -31,7 +31,7 @@ mail I sent earlier in gmail inbox and clicked on attachment and when browser
 opened the attachment I was shocked/surprised . Did you ask why?. See what I saw
 when I opened attachment.
 
-.. image:: {filename}/images/converted_html.png
+.. image:: {static}/images/converted_html.png
 
 Well I was confused for moment on what happened, I tried downloading the file
 and opened it an editor, and I see Chinese characters here also. After reaching
@@ -70,7 +70,7 @@ opened the same file.
 Below is the small gif showing this happening in real time, see what happens in
 emacs buffer when I change the encoding in terminal below. Fun right?.
 
-.. image:: {filename}/images/html_weirdness.gif
+.. image:: {static}/images/html_weirdness.gif
 
 I made following observation from above experiments.
 
