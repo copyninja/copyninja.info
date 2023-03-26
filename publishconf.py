@@ -10,7 +10,7 @@ import sys
 sys.path.append(os.curdir)
 from pelicanconf import *
 
-SITEURL = 'https://copyninja.info'
+SITEURL = 'https://copyninja.in'
 RELATIVE_URLS = False
 
 FEED_ALL_ATOM = 'feeds/all.atom.xml'
@@ -20,7 +20,9 @@ CATEGORY_FEED_ATOM = 'feeds/{slug}.atom.xml'
 USE_FOLDER_AS_CATEGORY = True
 
 # Metadata
-DEFAULT_METADATA = (('author', 'Vasudeva Kamath'),)
+DEFAULT_METADATA = {
+    'author': 'Vasudev Kamath',
+}
 
 DELETE_OUTPUT_DIRECTORY = True
 
