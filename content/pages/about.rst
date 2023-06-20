@@ -13,12 +13,12 @@ Karnataka in South India (West Coast).
 
 Free and Open Source software has been my area of interest from long
 time and I've been contributing to various `FLOSS project
-<https://www.openhub.net/profile/copyninja>`_ in my free
+<https://openhub.net/accounts/copyninja>`_ in my free
 time, of which most notable is `Debian Project
 <https://www.debian.org>`_.
 
-At work I code mainly in *C* and as hobby I code in *Python*. I also
-know languages like *Java, PHP, a bit of Perl, Go* syntactically.¹
+At work I code mainly in *C* and as hobby I code in *Python*. I also know
+languages like *Java, PHP, a bit of Perl, Go, Rust* syntactically.¹
 
 I use a lot of *Shell scripting* and GNU Make in both official and
 FOSS work. Git is my choice for VCS, I do know bit of Mercurial
