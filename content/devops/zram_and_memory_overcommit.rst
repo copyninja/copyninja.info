@@ -1,7 +1,7 @@
 Notes: Experimenting with ZRAM and Memory Over commit
 #####################################################
 
-:date: 2023-06-16 14:55
+:date: 2023-06-20 10:55
 :slug: zram_memory_overcommit
 :tags: zram, vm, overcommit, debian
 :author: copyninja
