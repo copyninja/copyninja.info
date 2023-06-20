@@ -7,157 +7,146 @@ Notes: Experimenting with ZRAM and Memory Over commit
 :author: copyninja
 :summary: Notes on experiments with ZRAM and vm.overcommit_memory
 
-ZRAM module in Linux kernel creates memory backed block device which keeps its
-content in compressed format. User can pick one of the compression algorithm
-from lz4,zstd or lzo. Compression ratio of these algorithms are *zstd > lzo >
-lz4* and speed is *lz4 > zstd > lzo*.
+Introduction
+============
 
-I was intrested in using ZRAM as swap to the system. There are 2 utilities which
-can help in getting this done, *zram-tools* and *systemd-zram-generator*. Since
-Debian Bullseye does not have *systemd-zram-generator*, only option for Bullseye
-user is *zram-tools*. Of course people can use *systemd-zram-generator* by self
-compiling or via *cargo* but I was working in restricted environment and prefer
-using tools which is available in the distribution repository.
+The ZRAM module in the Linux kernel creates a memory-backed block device that
+stores its content in a compressed format. It offers users the choice of
+compression algorithms such as lz4, zstd, or lzo. These algorithms differ in
+compression ratio and speed, with zstd providing the best compression but being
+slower, while lz4 offers higher speed but lower compression.
 
-Installation was stragiht forward.
+Using ZRAM as Swap
+==================
 
-.. code-block:: shell
+One interesting use case for ZRAM is utilizing it as swap space in the system.
+There are two utilities available for configuring ZRAM as swap: zram-tools and
+systemd-zram-generator. However, Debian Bullseye lacks systemd-zram-generator,
+making zram-tools the only option for Bullseye users. While it's possible to use
+systemd-zram-generator by self-compiling or via cargo, I preferred using tools
+available in the distribution repository due to my restricted environment.
 
-    apt-get install zram-tools
+Installation
+============
 
-Configuration is simple shellscript file which is sourced by */usr/bin/zramswap*
-script. Below is the configuration I used.
-
-.. code-block:: shell
-
-    # Compression algorithm selection
-    # speed: lz4 > zstd > lzo
-    # compression: zstd > lzo > lz4
-    # This is not inclusive of all that is available in latest kernels
-    # See /sys/block/zram0/comp_algorithm (when zram module is loaded) to see
-    # what is currently set and available for your kernel[1]
-    # [1]  https://github.com/torvalds/linux/blob/master/Documentation/blockdev/zram.txt#L86
-    ALGO=zstd
-
-    # Specifies the amount of RAM that should be used for zram
-    # based on a percentage the total amount of available memory
-    # This takes precedence and overrides SIZE below
-    PERCENT=30
-
-    # Specifies a static amount of RAM that should be used for
-    # the ZRAM devices, this is in MiB
-    #SIZE=256000
-
-    # Specifies the priority for the swap devices, see swapon(2)
-    # for more details. Higher number = higher priority
-    # This should probably be higher than hdd/ssd swaps.
-    #PRIORITY=100
-
-I used *zstd* as it provides best compression and reserved *30%* of memory as size
-of zram device. Post the modification we need to restart *zramswap.service* to
-make the swap active.
+The installation process is straightforward. Simply execute the following command:
 
 .. code-block:: shell
 
-    systemctl restart zramswap.service
+   apt-get install zram-tools
 
-The same above can be done using *systemd-zram-generator* package from Debian
-Bookworm. *zram-tools* is still available in the Debian Bookworm but this gives
-more tighter integration into systemd ecosystem. Following is the above
-configuration translated to *systemd-zram-generator* and location is
-*/etc/systemd/zram-generator.conf*.
+Configuration
+=============
+
+The configuration involves modifying a simple shell script file
+*/etc/default/zramswap* sourced by the `/usr/bin/zramswap` script. Here's an
+example of the configuration I used:
+
+.. code-block:: shell
+
+   # Compression algorithm selection
+   # Speed: lz4 > zstd > lzo
+   # Compression: zstd > lzo > lz4
+   # This is not inclusive of all the algorithms available in the latest kernels
+   # See /sys/block/zram0/comp_algorithm (when the zram module is loaded) to check
+   # the currently set and available algorithms for your kernel [1]
+   # [1]  https://github.com/torvalds/linux/blob/master/Documentation/blockdev/zram.txt#L86
+   ALGO=zstd
+
+   # Specifies the amount of RAM that should be used for zram
+   # based on a percentage of the total available memory
+   # This takes precedence and overrides SIZE below
+   PERCENT=30
+
+   # Specifies a static amount of RAM that should be used for
+   # the ZRAM devices, measured in MiB
+   # SIZE=256000
+
+   # Specifies the priority for the swap devices, see swapon(2)
+   # for more details. A higher number indicates higher priority
+   # This should probably be higher than hdd/ssd swaps.
+   # PRIORITY=100
+
+I chose zstd as the compression algorithm for its superior compression
+capabilities. Additionally, I reserved 30% of memory as the size of the zram
+device. After modifying the configuration, restart the `zramswap.service` to
+activate the swap:
+
+.. code-block:: shell
+
+   systemctl restart zramswap.service
+
+Using systemd-zram-generator
+============================
+
+For Debian Bookworm users, an alternative option is systemd-zram-generator.
+Although zram-tools is still available in Debian Bookworm,
+systemd-zram-generator offers a more integrated solution within the systemd
+ecosystem. Below is an example of the translated configuration for
+systemd-zram-generator, located at `/etc/systemd/zram-generator.conf`:
 
 .. code-block:: conf
 
-    # This config file enables a /dev/zram0 swap device with the following
-    # properties:
-    # * size: 50% of available RAM or 4GiB, whichever is less
-    # * compression-algorithm: kernel default
-    #
-    # This device's properties can be modified by adding options under the
-    # `[zram0]` section, or disabled by removing the section header.
-    # Additional zram devices can be created by appending new `[zramX]`
-    # sections and setting the appropriate options for each device.
-    #
-    # See /usr/share/doc/systemd-zram-generator/zram-generator.conf.example
-    # and/or zram-generator.conf(5) for a list of available options.
-    [zram0]
-    zram-size = ceil(ram * 33.3/100)
-    compression-algorithm = zstd
-    swap-priority = 100
-    fs-type = swap
+   # This config file enables a /dev/zram0 swap device with the following
+   # properties:
+   # * size: 50% of available RAM or 4GiB, whichever is less
+   # * compression-algorithm: kernel default
+   #
+   # This device's properties can be modified by adding options under the
+   # [zram0] section below. For example, to set a fixed size of 2GiB, set
+   # `zram-size = 2GiB`.
 
-Post changing the above we need to reload systemd and start
-*systemd-zram-setup@zram0.service*.
+   [zram0]
+   zram-size = ceil(ram * 30/100)
+   compression-algorithm = zstd
+   swap-priority = 100
+   fs-type = swap
+
+After making the necessary changes, reload systemd and start the `systemd-zram-setup@zram0.service`:
 
 .. code-block:: shell
 
    systemctl daemon-reload
    systemctl start systemd-zram-setup@zram0.service
 
- *systemd-zram-generator* creates the zram device by loading kernel module and
- then creates *systemd.swap* unit for mounting zram device as swap. In this case
- swap file is called *zram0.swap* and here is its content.
+The `systemd-zram-generator` creates the zram device by loading the kernel
+module and then creates a `systemd.swap` unit to mount the zram device as swap.
+In this case, the swap file is called `zram0.swap`.
 
- .. code-block:: ini
+Checking Compression and Details
+================================
 
-     # /lib/systemd/system/systemd-zram-setup@.service
-     # SPDX-License-Identifier: MIT
-     # This file is part of the zram-generator project
-     # https://github.com/systemd/zram-generator
-
-     [Unit]
-     Description=Create swap on /dev/%i
-     Documentation=man:zram-generator(8) man:zram-generator.conf(5)
-     After=dev-%i.device
-     DefaultDependencies=false
-
-     [Service]
-     Type=oneshot
-     RemainAfterExit=yes
-     ExecStart=/lib/systemd/system-generators/zram-generator --setup-device '%i'
-     ExecStop=/lib/systemd/system-generators/zram-generator --reset-device '%i'
-
-     # /run/systemd/generator/systemd-zram-setup@zram0.service.d/bindings.conf
-     # Automatically generated by /usr/lib/systemd/system-generators/zram-generator
-
-     [Unit]
-     BindsTo=dev-%i.swap
-
-Note that in this case I'm creating swap device but you can provide any file
-system as *fs-type* and same will be created on the device and you can also
-provide *mount-point* in which case *systemd.mount* file will be created to
-mount the new device to the specified mount point.
-
-When I tested the swap with some synthetic memory pressure created using
-*stress-ng* I could reach compression ratio of approx *40%*. (In range of 36-40
-to be exact). The status of zram device and compression details can be got by
-using *zramctl* which is part of *util-linux* package. We can also use
-*zramswap* which is the utility provided *zram-tools* which will give us same
+To verify the effectiveness of the swap configuration, you can use the `zramctl`
+command, which is part of the `util-linux` package. Alternatively, the
+`zramswap` utility provided by `zram-tools` can be used to obtain the same
 output.
+
+During my testing with synthetic memory load created using *stress-ng* *vm*
+class I found that I can reach upto *40%* compression ratio.
 
 Memory Overcommit
 =================
 
-Another use case I wanted was the ability to launch applications more than the
-amount permitted by the total system memory. If you ask why? well use case is
-there are applications which due large amount of malloc but never uses all the
-memory. Even if memory used not all applications will use at same time.
+Another use case I was looking for is allowing the launching of applications
+that require more memory than what is available in the system. By default, the
+Linux kernel attempts to estimate the amount of free memory left on the system
+when user space requests more memory (`vm.overcommit_memory=0`). However, you
+can change this behavior by modifying the sysctl value for
+`vm.overcommit_memory` to `1`.
 
-By default Linux kernel attempts to estimate the amount of free memory left on the
-system when user space asks for more memory (*vm.overcommit_memory=0*). To try
-this we can run stress-ng and request memory more than available on system.
+To demonstrate this, I ran a test using stress-ng to request more memory than
+the system had available. As expected, the Linux kernel refused to allocate
+memory, and the stress-ng process could not proceed.
 
 .. code-block:: shell
 
-    ┌─(~)─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────(vasudeva.sk@chamunda:pts/8)─┐
-    └─(17:07:43)──> free -tg                                                                                                                                                                                         ──(Mon,Jun19)─┘
+   free -tg                                                                                                                                                                                         ──(Mon,Jun19)─┘
                    total        used        free      shared  buff/cache   available
     Mem:              31          12          11           3          11          18
     Swap:             10           2           8
     Total:            41          14          19
-    ┌─(~)─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────(vasudeva.sk@chamunda:pts/8)─┐
-    └─(17:07:46)──> sudo stress-ng --vm=1 --vm-bytes=50G -t 120                                                                                                                                                      ──(Mon,Jun19)─┘
+
+   sudo stress-ng --vm=1 --vm-bytes=50G -t 120                                                                                                                                                      ──(Mon,Jun19)─┘
     stress-ng: info:  [1496310] setting to a 120 second (2 mins, 0.00 secs) run per stressor
     stress-ng: info:  [1496310] dispatching hogs: 1 vm
     stress-ng: info:  [1496312] vm: gave up trying to mmap, no available memory, skipping stressor
@@ -168,16 +157,38 @@ this we can run stress-ng and request memory more than available on system.
     stress-ng: info:  [1496310] failed: 0
     stress-ng: info:  [1496310] skipped: 1: vm (1)
     stress-ng: info:  [1496310] successful run completed in 10.04s
-    ┌─(~)─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────(vasudeva.sk@chamunda:pts/8)─┐
-    └─(17:08:08)──>                                                                                                                                                                                              3 ↵ ──(Mon,Jun19)─┘
 
-As you can see I requested 50G memory to run stress-ng vm job but available
-system memory including swap (zram) was 41G and Linux refused to allocate memory
-and stress-ng could not proceed.
+By setting `vm.overcommit_memory=1`, Linux will allocate memory in a more relaxed
+manner, assuming an infinite amount of memory is available.
 
-To make Linux kernel allocate memory in relaxed manner, as if there is infinite
-amount of memory to be allocated we need to set sysctl value for
-*vm.overcommit_memory* to *1*.
+Conclusion
+==========
 
-We can launch the above stress-ng with 50G now with this setting enabled but its
-going to get OOM killed as really there is not that much memory on system :-)
+ZRAM provides disks that allow for very fast I/O, and compression allows for a
+significant amount of memory savings. ZRAM is not restricted to just swap usage;
+it can be used as a normal block device with different file systems.
+
+Using ZRAM as swap is beneficial because, unlike disk-based swap, it is faster,
+and compression ensures that we use a smaller amount of RAM itself as swap
+space.
+
+Additionally, adjusting the memory overcommit settings can be beneficial for
+scenarios that require launching memory-intensive applications.
+
+*Note: When running stress tests or allocating excessive memory, be cautious
+about the actual memory capacity of your system to prevent out-of-memory (OOM)
+situations.*
+
+Feel free to explore the capabilities of ZRAM and optimize your system's memory
+management. Happy computing!
+
+Reference
+=========
+
+1. `zram: Compressed RAM-based block device
+   <https://www.kernel.org/doc/html/latest/admin-guide/blockdev/zram.html>`_
+2. `Overcommit Accounting
+   <https://www.kernel.org/doc/Documentation/vm/overcommit-accounting>`_
+3. `Linux Overcommit Modes <https://www.baeldung.com/linux/overcommit-modes>`_
+4. `zram: Arch Wiki <https://www.baeldung.com/linux/overcommit-modes>`_
+5. `zram: Debian Wiki <https://wiki.debian.org/ZRam>`_
