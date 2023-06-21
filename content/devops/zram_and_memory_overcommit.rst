@@ -190,5 +190,5 @@ Reference
 2. `Overcommit Accounting
    <https://www.kernel.org/doc/Documentation/vm/overcommit-accounting>`_
 3. `Linux Overcommit Modes <https://www.baeldung.com/linux/overcommit-modes>`_
-4. `zram: Arch Wiki <https://www.baeldung.com/linux/overcommit-modes>`_
+4. `zram: Arch Wiki <https://wiki.archlinux.org/title/Zram>`_
 5. `zram: Debian Wiki <https://wiki.debian.org/ZRam>`_
