@@ -121,9 +121,13 @@ be mounted for resize, so I could not attempt it in live boot.
 
     btfs fielsystem resize max /
 
-And now I'm writing this blog from my new laptop without needing to do any
-resetup or reinstallation of software. Even though copying takes a while, I did
-not spend more than an hour to do this entire process, and a lot of time is
-saved by not having to reinstall every software you need and reconfigure it to
-the original settings. It would definitely take a week for you to adjust to your
-new laptop.
+Conclussion
+###########
+
+The only benefit of this entire process is that I have a new laptop, but I still
+feel like I'm using my existing laptop. Typically, setting up a new laptop takes
+about a week or two to completely get adjusted, but in this case, that entire
+time is saved.
+
+An added benefit is that I learned how to export disks using NVME over TCP,
+thanks to my colleague. This new knowledge adds to the value of the experience.
