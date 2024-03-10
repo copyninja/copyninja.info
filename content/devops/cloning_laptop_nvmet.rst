@@ -1,11 +1,11 @@
 Cloning a laptop over NVME TCP
 ##############################
 
-:date: 2024-03-10 15:50
+:date: 2024-03-10 17:15
 :slug: clone_laptop_nvmet
 :tags: debian, nvmet, clone
 :author: copyninja
-:summary: Cloning old laptoip over NVME TCP
+:summary: Cloning old laptop over NVME TCP
 
 Recently, I got a new laptop and had to set it up so I could start using it. But
 I wasn't really in the mood to go through the same old steps which I had
@@ -94,7 +94,7 @@ disk or use BTRFS itself for file system transfer.
     dd if=/dev/nvme2n1 of=/dev/nvme0n1 status=progress bs=40M
 
 Resizing Partition and LUKS Container
-#####################################
+=====================================
 
 The final part was very easy. When I launched ``parted``, it detected that the
 partition table does not match the disk size and asked if it can fix it, and I
@@ -122,7 +122,7 @@ be mounted for resize, so I could not attempt it in live boot.
     btfs fielsystem resize max /
 
 Conclussion
-###########
+===========
 
 The only benefit of this entire process is that I have a new laptop, but I still
 feel like I'm using my existing laptop. Typically, setting up a new laptop takes
