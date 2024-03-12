@@ -121,8 +121,8 @@ be mounted for resize, so I could not attempt it in live boot.
 
     btfs fielsystem resize max /
 
-Conclussion
-===========
+Conclusion
+==========
 
 The only benefit of this entire process is that I have a new laptop, but I still
 feel like I'm using my existing laptop. Typically, setting up a new laptop takes
