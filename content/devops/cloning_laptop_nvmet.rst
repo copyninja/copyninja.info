@@ -47,7 +47,7 @@ nvmet-tcp module of Linux:
 
 .. code-block:: shell
 
-   modprobe nvemt-tcp
+   modprobe nvmet-tcp
    cd /sys/kernel/config/nvmet
    mkdir ports/0
    cd ports/0
