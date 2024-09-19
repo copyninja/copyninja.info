@@ -3,31 +3,31 @@ Note to Self: Enabling ukify kernel on Debian
 
 :date: 2024-09-19 11:40
 :slug: enable_ukify_debian
-:tags: debian,systemd,ukify
+:tags: debian, systemd, ukify
 :author: copyninja
-:summary: Enabling the systemd-ukify based booting on Debian
+:summary: Enabling systemd-ukify based booting on Debian
 
-*These steps may not work on your system if you are using default Debian
- installation, this will work only when you are using systemd-boot as bootloader
- in your system, which is explained in this post
- <https://copyninja.in/blog/live_install_debian.html>__*
+*These steps may not work on your system if you are using the default Debian
+installation. This guide assumes that your system is using systemd-boot as the
+bootloader, which is explained in* *`this post <https://copyninja.in/blog/live_install_debian.html>`_ .*
 
-A unified kernel image (UKI) is a single executable which can be booted directly
-from UEFI firmware, or automatically sourced by boot loaders with little or no
-configuration. It is the combination of a UEFI boot stub program like
-systemd-stub(7), a Linux kernel image, an initrd, and further resources in a
-single UEFI PE file.
+A unified kernel image (UKI) is a single executable that can be booted directly
+from UEFI firmware or automatically sourced by bootloaders with little or no
+configuration. It combines a UEFI boot stub program like
+systemd-stub(7), a Linux kernel image, an initrd, and additional resources into
+a single UEFI PE file.
 
-systemd-boot already ships hook for kernel installation via
-*/etc/kernel/postinst.d/zz-systemd-boot*. We only need couple of configuration
-to generate the uki image. We need to install *systemd-ukify* package which
-provides uki image generator. This can be done with following command.
+systemd-boot already provides a hook for kernel installation via
+*/etc/kernel/postinst.d/zz-systemd-boot*. We just need a couple of additional
+configurations to generate the UKI image. First, we need to install the
+*systemd-ukify* package, which includes the UKI image generator. This can be done
+with the following command:
 
 .. code-block:: sh
 
     apt-get install systemd-ukify
 
-First write following to */etc/kernel/install.conf*
+Next, create the following configuration in */etc/kernel/install.conf*:
 
 .. code-block:: conf
 
@@ -35,29 +35,30 @@ First write following to */etc/kernel/install.conf*
     initrd_generator=dracut
     uki_generator=ukify
 
-The configuration suggests how to generate uki image for given kernel and which
-generator to use. ukify is provided by systemd-ukify package.
+This configuration specifies how to generate the UKI image for the installed
+kernel and which generator to use. The *ukify* generator is provided by the
+*systemd-ukify* package.
 
-Next we need to tell what is the kernel command line to be used with uki image.
-This can be done by adding */etc/kernel/uki.conf* with following content.
+Now, we need to define the kernel command line for the UKI image. Add the file
+*/etc/kernel/uki.conf* with the following content:
 
 .. code-block:: conf
 
     [UKI]
     Cmdline=@/etc/kernel/cmdline
 
-Now we need to reconfigure the running kernel to generate uki image for the
-kernel. This can be done with following command.
+To apply these changes, we need to regenerate the UKI image for the currently
+running kernel. This can be done using the following command:
 
 .. code-block:: sh
 
     dpkg-reconfigure linux-image-`uname -r`
 
+After running this command, use the *bootctl list* command to verify the presence
+of a *Type #2* entry for the current kernel. The output should look something
+like this:
 
-Post running this run the *bootctl list* command and see if you can see *Type
-#2* entry for current kernel. Output will looks something like below.
-
-.. code-block::
+.. code-block:: conf
 
    bootctl list
          type: Boot Loader Specification Type #2 (.efi)
@@ -81,10 +82,10 @@ Post running this run the *bootctl list* command and see if you can see *Type
            id: auto-reboot-to-firmware-setup
        source: /sys/firmware/efi/efivars/LoaderEntries-4a67b082-0a4c-41cf-b6c7-440b29bb8c4f
 
-Once *Type #2* entries are generated make sure to remove unlink *Type #1*
-entries using *bootctl unlink* command. Post this you can reboot the system to
-boot into UKI based image.
+Once the *Type #2* entries are generated, you should remove any *Type #1* entries
+using the *bootctl unlink* command. After this, you can reboot your system to
+boot from the UKI-based image.
 
-Main usecase of UKI image will be in secure boot. Signing the UKI image can also
-be configured in above configuration but I've not done it yet as I've not setup
-the secure boot yet on my system.
+The primary use case for a UKI image is secure boot. Signing the UKI image can
+also be configured in the settings above, but I have not done this yet since I
+haven’t set up secure boot on my system.
