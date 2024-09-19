@@ -9,7 +9,9 @@ Note to Self: Enabling ukify kernel on Debian
 
 *These steps may not work on your system if you are using the default Debian
 installation. This guide assumes that your system is using systemd-boot as the
-bootloader, which is explained in* *`this post <https://copyninja.in/blog/live_install_debian.html>`_ .*
+bootloader, which is explained in the post linked below.*
+
+* `Install Debian from grml-liveboot <https://copyninja.in/blog/live_install_debian.html>`__.
 
 A unified kernel image (UKI) is a single executable that can be booted directly
 from UEFI firmware or automatically sourced by bootloaders with little or no
