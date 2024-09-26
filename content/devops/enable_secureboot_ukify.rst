@@ -44,6 +44,8 @@ Mode*. Verify the status using the ``bootctl status`` command. You should see
 output similar to the following image:
 
 .. image:: {static}/images/uefi_setupmode.png
+    :alt: UEFI Setup mode
+    :align: center
 
 Generating Keys
 ---------------
@@ -76,6 +78,8 @@ Install the signed bootloader using ``bootctl install``. The output should
 resemble this:
 
 .. image:: {static}/images/bootctl_install.png
+           :alt: bootctl install
+           :align: center
 
 .. note::
 
@@ -85,6 +89,8 @@ resemble this:
 Verify the signature using ``sbsign --verify``:
 
 .. image:: {static}/images/sbsign_verify_systemdboot.png
+           :alt: sbsign verify
+           :align: center
 
 Configuring UKI for Secure Boot
 -------------------------------
@@ -142,6 +148,8 @@ After key enrollment, the system will reboot into the newly signed kernel.
 Verify with ``bootctl``:
 
 .. image:: {static}/images/bootctl_uefi_enabled.png
+           :alt: uefi enabled
+           :align: center
 
 Dealing with Lockdown Mode
 --------------------------
