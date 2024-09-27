@@ -18,7 +18,7 @@ Understanding Secure Boot Detection
 ===================================
 
 To begin, we need to understand how the kernel detects if Secure Boot is
-enabled. This is done by the *efi_get_secureboot* function, the code is shown in
+enabled. This is done by the *efi_get_secureboot* function, as shown in the
 image below:
 
 .. image:: {static}/images/secureboot_code.png
@@ -28,9 +28,16 @@ image below:
 Disabling Kernel Lockdown
 =========================
 
+The kernel code uses the value of MokSBStateRT to identify the Secure Boot state,
+assuming that Secure Boot can only be enabled via shim. This assumption holds true
+when using the Microsoft certificate for signature validation (as Microsoft currently
+only signs shim). However, if we're using our own keys, we don't need shim and can
+sign the bootloader ourselves. In this case, the Secure Boot state of the system
+doesn't need to be tied to the MokSBStateRT variable.
+
 To disable kernel lockdown, we need to set the UEFI runtime variable
 *MokSBStateRT*. This essentially tricks the kernel into thinking Secure Boot is
-disabled when it's actually enabled. This is achieved using the UEFI
+disabled when it's actually enabled. This is achieved using a UEFI
 *initializing* driver.
 
 The code for this was written by an anonymous colleague who also assisted me
